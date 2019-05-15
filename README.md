@@ -9,17 +9,17 @@
 <h3>Подключение библиотеки в HTML :</h3>
 
 <pre>
-     <script language="JavaScript" type="text/javascript" src="http://localhost:57772/<-WebApp->/<-namespace->"></script>
-     <script language="JavaScript" type="text/javascript" src="http://localhost:57772/<-WebApp->/<-namespace->/User.test"></script>
+     &lt;script language="JavaScript" type="text/javascript" src="http://localhost:57772/&lt;-WebApp->/&lt;-namespace->">&lt;/script>
+     &lt;script language="JavaScript" type="text/javascript" src="http://localhost:57772/&lt;-WebApp->/&lt;-namespace->/User.test">&lt;/ script>
 </pre>
 
 <h3>Пример использования:</h3>
 <pre>
-<html>
- <head>
-   <script language="JavaScript" type="text/javascript" src="http://localhost:57772/android"></script>
-   <script language="JavaScript" type="text/javascript" src="http://localhost:57772/android/User.test"></script>
-   <script language="JavaScript">
+&lt;html>
+ &lt;head>
+   &lt;script language="JavaScript" type="text/javascript" src="http://localhost:57772/android">&lt;/script>
+   &lt;script language="JavaScript" type="text/javascript" src="http://localhost:57772/android/User.test">&lt;/script>
+   &lt;script language="JavaScript">
     callBack=function(txt){
 	    alert('callBack:'+txt)
     }
@@ -31,11 +31,11 @@
     test=function(){
 	    run('www',callBack,ProgressBack)
     }  
-  </script>
-</head>
-<body>
-    <button onclick="console.log(GetServer('User.test.run','www'))"> run 2</button>
-    <button onclick="test()"> run 2</button>
-</body>
-</html>
-</pre>
+  &lt;/script>
+&lt;/head>
+&lt;body>
+    &lt;button onclick="console.log(GetServer('User.test.run','www'))"> run 2</button>
+    &lt;button onclick="test()"> run 2</button>
+&lt;/body>
+&lt;/html>
+&lt;/pre>
