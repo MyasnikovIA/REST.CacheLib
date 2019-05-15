@@ -34,8 +34,26 @@
   &lt;/script>
 &lt;/head>
 &lt;body>
-    &lt;button onclick="console.log(GetServer('User.test.run','www'))"> run 2</button>
-    &lt;button onclick="test()"> run 2</button>
+    &lt;button onclick="console.log(GetServer('User.test.run','www'))"> run 2&lt;/button>
+    &lt;button onclick="test()"> run 2&lt;/button>
 &lt;/body>
 &lt;/html>
-&lt;/pre>
+</pre>
+Вызываемый класс:
+<pre>
+
+Class User.test Extends %RegisteredObject
+{
+   /// Необходимо указать   Language = cache, WebMethod  
+   /// Если этой информации небудет, тогда метод не подключится!!!
+   ClassMethod run(arg1 = "") As %String [ Language = cache, WebMethod ]
+   {
+      &js< alert('#($h)#') >
+      h 5
+      q "Result Text"
+   }
+
+}
+</pre>
+
+
