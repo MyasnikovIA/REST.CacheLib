@@ -26,12 +26,12 @@
 	    alert('callBack:'+txt)
     }
  
-    ProgressBack=function(txt){
+    ProgressBar=function(txt){
 	    alert('ProgressBack:'+txt)
     }
     
     test=function(){
-	    run('www',callBack,ProgressBack)
+	    run('www',callBack,ProgressBar)
     }  
   &lt;/script>
 &lt;/head>
