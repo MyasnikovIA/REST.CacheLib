@@ -9,7 +9,9 @@
 <h3>Подключение библиотеки в HTML :</h3>
 
 <pre>
+     Подключить библиотеку для обработки запросов:
      &lt;script language="JavaScript" type="text/javascript" src="http://localhost:57772/&lt;-WebApp->/&lt;-namespace->">&lt;/script>
+     Подключение класса для интерпретации методов в JS функции (User.test): 
      &lt;script language="JavaScript" type="text/javascript" src="http://localhost:57772/&lt;-WebApp->/&lt;-namespace->/User.test">&lt;/ script>
 </pre>
 
