@@ -58,7 +58,25 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <Route Url="/:namespace/GetStatus/:processid" Method="GET" Call="GetStatus"/>
 <Route Url="/:namespace/:classlist" Method="GET"  Call="IncludeClassMethod"/>
 <Route Url="/:namespace"            Method="GET"  Call="GetJavaScript"/>
+<Route Url="/:namespace/:classlist/echo"            Method="GET"  Call="Getecho"/>
 </Routes>
+}
+
+ClassMethod GetUrlQuery() As %String
+{
+	// http://localhost:57772/ddd/sss/echo
+   set res=%request.CgiEnvs("REQUEST_SCHEME")
+   set res=res_"://"_%request.CgiEnvs("SERVER_NAME")
+   set res=res_":"_%request.CgiEnvs("SERVER_PORT")
+   set res=res_""_%request.CgiEnvs("SCRIPT_NAME")
+   q res
+}
+
+ClassMethod Getecho(namespace = {$zu(5)}, sss = "") As %Status
+{
+    d %response.SetHeader("Content-Type","application/javascript")   
+    zw %request
+    q 1
 }
 
 ClassMethod GetStatus(namespace = {$zu(5)}, processid = "") As %Status
@@ -209,7 +227,7 @@ ClientMethod GetServer() [ Language = javascript ]
       // console.log( arr );
       if (FunCallBack==null){
          var requestSendServer = new XMLHttpRequest();
-         requestSendServer.open('POST', '/*(   w $zcvt(%request.URL,"O","URL")  )*//'+MethName, false);
+         requestSendServer.open('POST', '/*(   w ..GetUrlQuery()  )*//'+MethName, false);
          requestSendServer.send(JSON.stringify(arr));  
          requestSendServer.ontimeout = function (e) { alert('Time Out...');  }
          if (requestSendServer.status !== 200) {  return {"error":requestSendServer.status}  }
@@ -218,7 +236,7 @@ ClientMethod GetServer() [ Language = javascript ]
      
       if (FunProgress==null){ FunProgress=function(txt){} };
       var requestSendServer = new XMLHttpRequest();
-      requestSendServer.open('POST', '/*(   w $zcvt(%request.URL,"O","URL")  )*//'+MethName+'/job', false);
+      requestSendServer.open('POST', '/*(   w ..GetUrlQuery()  )*//'+MethName+'/job', false);
       requestSendServer.send(JSON.stringify(arr));  
       requestSendServer.ontimeout = function (e) { alert('Time Out...');  }
       if (requestSendServer.status !== 200) {  return {"error":requestSendServer.status}  }
@@ -226,14 +244,14 @@ ClientMethod GetServer() [ Language = javascript ]
       // console.log(ProcessJob);
       var FastReportTimerId = setTimeout(function tick() {
            var requestSendServerStatus = new XMLHttpRequest();
-           requestSendServerStatus.open('GET','/*(   w $zcvt(%request.URL,"O","URL")  )*//GetStatus/'+ProcessJob, false);
+           requestSendServerStatus.open('GET','/*(   w ..GetUrlQuery()  )*//GetStatus/'+ProcessJob, false);
            requestSendServerStatus.ontimeout = function (e) { isBreck=true; alert('Error:TimeOut'); }
            requestSendServerStatus.send();  
            if (requestSendServerStatus.status !== 200) {   isBreck=true; alert('Error');  }
            // console.log(requestSendServerStatus.responseText);
            if (typeof FunProgress === 'function'){
 	           var requestSendServerStatusSub = new XMLHttpRequest();
-               requestSendServerStatusSub.open('GET','/*(   w $zcvt(%request.URL,"O","URL")  )*//GetBuffer/'+ProcessJob , false);
+               requestSendServerStatusSub.open('GET','/*(   w ..GetUrlQuery()  )*//GetBuffer/'+ProcessJob , false);
                requestSendServerStatusSub.ontimeout = function (e) {  alert('Error:TimeOut'); }
                requestSendServerStatusSub.send();  
                FunProgress(requestSendServerStatusSub.responseText); 
@@ -244,7 +262,7 @@ ClientMethod GetServer() [ Language = javascript ]
                 clearInterval(FastReportTimerId);  
                 if (typeof FunCallBack === 'function'){ 
                    var requestSendServerStatusSub = new XMLHttpRequest();
-                   requestSendServerStatusSub.open('GET','/*(   w $zcvt(%request.URL,"O","URL")  )*//GetResult/'+ProcessJob , false);
+                   requestSendServerStatusSub.open('GET','/*(   w ..GetUrlQuery()  )*//GetResult/'+ProcessJob , false);
                    requestSendServerStatusSub.ontimeout = function (e) {  alert('Error:TimeOut'); }
                    requestSendServerStatusSub.send();  
                    FunCallBack(requestSendServerStatusSub.responseText); 
