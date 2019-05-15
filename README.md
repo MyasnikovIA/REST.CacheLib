@@ -45,7 +45,7 @@
 Class User.test Extends %RegisteredObject
 {
    /// Необходимо указать   Language = cache, WebMethod  
-   /// Если этой информации небудет, тогда метод не подключится!!!
+   /// Если этой информации нет, тогда метод не подключается!!!
    ClassMethod run(arg1 = "") As %String [ Language = cache, WebMethod ]
    {
       &js< alert('#($h)#') >
